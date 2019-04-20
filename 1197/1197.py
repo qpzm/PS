@@ -41,7 +41,6 @@ def prim(graph, num_vtx):
                     if not reachable[v]:
                         heapq.heappush(heap, (w, v))
 
-
     return sum
 
 
