@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstring>
+//#include <cstring>
 using namespace std;
 
 int sum = 0;
@@ -22,7 +22,7 @@ void n_queen_iter(int arr[], int size, int col) {
       } else {
         arr[col] = row;
         n_queen_iter(arr, size, col + 1);
-        arr[col] = -1;
+        //arr[col] = -1;
       }
     }
   }
@@ -30,7 +30,7 @@ void n_queen_iter(int arr[], int size, int col) {
 
 void n_queen(int size) {
   int arr[size];
-  memset(arr, -1, sizeof(int) * size);
+  //memset(arr, -1, sizeof(int) * size);
   n_queen_iter(arr, size, 0);
 }
 

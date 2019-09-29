@@ -23,7 +23,7 @@ def n_queen_iter(arr, col)
       else
         arr[col] = row
         n_queen_iter(arr, col + 1)
-        arr[col] = -1
+        #arr[col] = -1
       end
     end
   end
