@@ -7,13 +7,14 @@ int lis(int arr[], int size){
   for(int i=0; i<size; i++){
     memo[i] = 0;
   }
+  // 나에서 끝나는 lis 길이를 memo에 저장
   for(int i=0; i<size; i++){
     for(int j=0; j<i; j++){
       if(arr[i] > arr[j] && memo[i] < memo[j] + 1)
         memo[i] = memo[j] + 1;
     }
   }
-  return max(memo, size) + 1; //since initialized in 0
+  return max(memo, size) + 1; //since initialized in 0, 나를 제외한 길이이므로 1 더함
 }
 
 int main(){

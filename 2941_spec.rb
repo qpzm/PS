@@ -10,6 +10,6 @@ describe 'Croatian.count' do
   end
 
   it '' do
-    expect(Croatian.count('nljj')).to eq(3)
+    expect(Croatian.count('ddz=z=')).to eq(3)
   end
 end
