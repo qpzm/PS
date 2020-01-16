@@ -1,3 +1,6 @@
+# sys.stdin.readline()으로 읽으니 런타임에러가 계속 발생
+# 오래된 데이터에 \n이 없는 경우가 있다고 함.
+# https://www.acmicpc.net/blog/view/70
 import sys
 sys.setrecursionlimit(10**9)
 
