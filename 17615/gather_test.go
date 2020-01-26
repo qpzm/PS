@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestBulb(t *testing.T) {
+func TestSol(t *testing.T) {
     cases := []struct {
         n int
         in []int
@@ -21,9 +21,9 @@ func TestBulb(t *testing.T) {
         {10, []int{1, 1, 2, 3, 3, 3, 2, 2, 1, 1}, 2},
     }
     for _, c := range cases {
-        got := bulb(c.n, c.in)
+        got := sol(c.n, c.in)
         if got != c.want {
-            t.Errorf("bulb(%d) == %d, want %d", c.in, got, c.want)
+            t.Errorf("sol(%d) == %d, want %d", c.in, got, c.want)
         }
     }
 }
