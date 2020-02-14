@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cassert>
 using namespace std;
 #define SIZE 9
 typedef pair<int,int> Point;
@@ -14,41 +13,24 @@ bool valid();
 void parse_input();
 void print_output();
 void solve(Iterator);
-void check();
 
 int main(){
   ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
   parse_input();
   solve(v.begin());
-  check();
   print_output();
 }
 
-void check() {
-  int i,j;
-  int cnt[9] = {0};
-  for (i=0; i < SIZE; i++) {
-    for (j=0; j < SIZE; j++) {
-      cnt[map[i][j] - 1]++;
-    }
-  }
-
-  for (i=0; i < SIZE; i++) {
-    assert(cnt[i] == SIZE);
-  }
-}
-
 bool valid(int i, int j, int num) {
-  int area_i = 3*(i / 3), area_j = 3*(j / 3);
+  int i_start = 3*(i / 3), j_start = 3*(j / 3);
 
   for(int k=0; k<SIZE; k++) {
     if(map[i][k] == num || map[k][j] == num) return false;
   }
 
-  for(int a=0; a<3; a++) {
-    for(int b=0; b<3; b++) {
-      if(map[area_i + a][area_j + b] == num) {
-        //cout << "Visit" <  << "," << j << " : " << n << endl;
+  for(int i=i_start; i < i_start + 3; i++) {
+    for(int j=j_start; j < j_start + 3; j++) {
+      if(map[i][j] == num) {
         return false;
       }
     }
