@@ -1,30 +1,28 @@
 MAX = 100_000
 
+def check_and_append(q, visited, pos):
+    if pos >= 0 and pos <= MAX and not visited[pos]:
+        visited[pos] = True
+        q.append(pos)
+
 def main():
     src, dest = map(int, input().split())
-    queue = [(src, 0)]
     visited = [False] * (MAX + 1)
+    queue = [src]
+    step = 0
 
-    for cur, step in queue:
-        candidates = []
-        visited[cur] = True
-        if cur == dest:
-            print(step)
-            break
-        if dest > cur:
-            if cur - 1 >= 0:
-                candidates.append(cur - 1)
-            if cur + 1 <= MAX:
-                candidates.append(cur + 1)
-            if cur * 2 <= MAX:
-                candidates.append(cur * 2)
-        else:
-            if cur - 1 >= 0:
-                candidates.append(cur - 1)
-
-        for node in candidates:
-            if not visited[node]:
-                queue.append((node, step + 1))
+    while(len(queue) != 0):
+        for _ in range(len(queue)):
+            cur = queue.pop(0)
+            visited[cur] = True
+            if cur == dest:
+                print(step)
+                return
+            check_and_append(queue, visited, cur - 1)
+            if dest > cur:
+                check_and_append(queue, visited, cur + 1)
+                check_and_append(queue, visited, cur * 2)
+        step += 1
 
 if __name__ == '__main__':
     main()
