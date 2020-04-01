@@ -1,18 +1,15 @@
 from sys import stdin
-from math import floor
-input = stdin.readline
 
 def main():
     locs = []
-    N, C = map(int, input().split())
-    for _ in range(N):
-        locs.append(int(input().rstrip()))
+    _, C = map(int, input().split())
+    locs = [int(y) for y in stdin.read().splitlines()]
     print(solve(locs, C))
 
 def solve(locs, C):
-    locs = sorted(locs)
-    init_dist = floor((locs[-1] - locs[0]) / (C - 1))
-    return(bsearch(1, init_dist, locs, C))
+    locs.sort()
+    bottom, end = 1, (locs[-1] - locs[0]) // (C - 1) + 1
+    return(bsearch(bottom, end, lambda d: check(d, locs, C)))
 
 def check(dist, locs, cnt):
     # put one router at the start
@@ -29,21 +26,16 @@ def check(dist, locs, cnt):
 
     return routers == 0
 
-def bsearch(s, e, locs, cnt):
-    if e == s:
-        return e
-
+def bsearch(s, e, f):
+# [start, end)
     if e - s == 1:
-        if check(e, locs, cnt):
-            return e
-        else:
-            return s
+        return s
 
-    middle = floor((s + e) / 2)
-    if check(middle, locs, cnt):
-        return bsearch(middle, e, locs, cnt)
+    middle = (s + e) // 2
+    if f(middle):
+        return bsearch(middle, e, f)
     else:
-        return bsearch(s, middle - 1, locs, cnt)
+        return bsearch(s, middle, f)
 
 if __name__ == "__main__":
     main()
