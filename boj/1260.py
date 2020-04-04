@@ -34,13 +34,15 @@ def _dfs(visited, V):
 def bfs(V, graph):
     visited = [False] * (N + 1)
     q = deque([V])
+    visited[V] = True
+
     while(q):
         u = q.popleft()
-        if not visited[u]:
-            visited[u] = True
-            stdout.write(f'{u} ')
-            if u in graph:
-                for neighbor in graph[u]:
+        stdout.write(f'{u} ')
+        if u in graph:
+            for neighbor in graph[u]:
+                if not visited[neighbor]:
+                    visited[neighbor] = True
                     q.append(neighbor)
     stdout.write('\n')
 
