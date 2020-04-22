@@ -21,7 +21,7 @@ def find_lis(arr, len_arr, idx)
   return [arr[idx]] if len_arr[idx] == 1
 
   (idx - 1).downto(0).each do |i|
-    if len_arr[i] == len_arr[idx] -1 && arr[i] < arr[idx]
+    if len_arr[i] == len_arr[idx] - 1 && arr[i] < arr[idx]
       return find_lis(arr, len_arr , i) + [arr[idx]]
     end
   end
