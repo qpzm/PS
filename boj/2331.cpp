@@ -2,7 +2,7 @@
 #include <unordered_map>
 using namespace std;
 
-int mul(int n, int m) {
+int my_pow(int n, int m) {
     int res = 1;
     while(m--) {
         res *= n;
@@ -12,10 +12,8 @@ int mul(int n, int m) {
 
 int next(int n, int m) {
     int res = 0;
-    while(n % 10 != 0 || n / 10) {
-        int right = n % 10;
-        res += mul(right, m);
-        n -= right;
+    while(n != 0) {
+        res += my_pow(n % 10, m);
         n /= 10;
     }
 
