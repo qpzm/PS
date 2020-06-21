@@ -11,10 +11,6 @@ int min_coins(const vector<int> coins, const int target) {
     }
 
     for(int i = 1; i < H; ++i) {
-        dp[i][0] = 0;
-    }
-
-    for(int i = 1; i < H; ++i) {
         int coin = coins[i];
         for(int j=0; j < W; ++j){
             for(int k=0; 0 <= j - coin * k; k++){
