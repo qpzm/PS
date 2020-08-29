@@ -1,19 +1,54 @@
 class Solution {
-    // Q. How to rotate in-place?
+    /* in-place rotate : (i,j) -> (j, N - 1 - i)
+     * 1. transpose : (i, j) -> (j, i)
+     * 2. symmetric transposition(대칭 이동)
+     *    reverse columns through swap i-th col & (N-1-i)th col
+     *    i.e. (j, i) -> (j, N - 1 - i)
+     */
     public void rotate(int[][] matrix) {
+        transpose(matrix);
+        reverseColumns(matrix);
+    }
+
+    // This is not the answer
+    public void rotateNotInPlace(int[][] matrix) {
         int rows = matrix.length;
-        int cols = matrix[0].length;
-        int[][] ret = new int[rows][cols];
+        int[][] ret = new int[rows][rows];
 
         for(int i=0; i < rows; i++) {
-            for(int j=0; j < cols; j++) {
+            for(int j=0; j < rows; j++) {
                 ret[j][rows - 1 - i] = matrix[i][j];
             }
         }
 
         for(int i=0; i < rows; i++) {
-            for(int j=0; j < cols; j++) {
+            for(int j=0; j < rows; j++) {
                 matrix[i][j] = ret[i][j];
+            }
+        }
+    }
+
+    private void transpose(int[][] matrix) {
+        int rows = matrix.length;
+        int tmp;
+        for(int i=0; i < rows; i++) {
+            for(int j=i+1; j < rows; j++) {
+                tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+    }
+
+    private void reverseColumns(int[][] matrix) {
+        int N = matrix.length;
+        int tmp;
+        for(int j=0; j < N/2; j++) {
+            int symmetric_col = N - 1 - j;
+            for(int i=0; i < N; i++) {
+                tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][symmetric_col];
+                matrix[i][symmetric_col] = tmp;
             }
         }
     }
