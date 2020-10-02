@@ -9,38 +9,32 @@ fun main(args: Array<String>) = with(Scanner(System.`in`)) {
 fun List<Int>.myToString(prefix: String = "<", postFix: String = ">") =
     prefix + this.map(Int::toString).reduce { acc, x ->  acc + ", " + x } + postFix
 
+/*
+ * 1. remove 한 값을 결과 리스트에 더함.
+ * 2. 다음 candidate 선정: k - 1 만큼 계속 더해주거나 종료 조건 체크.
+ */
 fun solve(n: Int, k: Int): List<Int> {
     val nums = (1..n).toMutableList()
-    var i = 0
+    var pickIndex = k - 1
     val l = mutableListOf<Int>()
 
-    while(true) {
-        val (v, j) = pickOne(nums, k - 1, i)
-        if(v == -1) {
-            break
-        }
-        //println(v to j)
+    while(!nums.isEmpty()) {
+        val (v, j) = pickOne(nums, pickIndex)
+        // println(v to j)
         l.add(v)
-        i = j
+        pickIndex = j + k - 1
     }
 
     return l
 }
 
 /*
- * l에서 index i + k를 remove.
- * i + k > lastIndex 이면 넘치는 만큼 처음부터 다시 시작.
- * 즉, k = i + k - size, i = 0
+ * l에서 index k를 remove. 자체적으로 overflow 처리
+ * k > lastIndex 이면 넘치는 만큼 처음부터 다시 시작. 즉, k = k - size
  */
-fun pickOne(l: MutableList<Int>, k: Int, i: Int): Pair<Int, Int> {
-    if(l.size == 0) {
-        return -1 to -1
+fun pickOne(l: MutableList<Int>, k: Int): Pair<Int, Int> =
+    if(l.size <= k) {
+        pickOne(l, k - l.size)
+    } else {
+        l.removeAt(k) to k
     }
-
-    val candidate = i + k
-    if(l.size <= candidate) {
-        return pickOne(l, candidate - l.size, 0)
-    }
-
-    return l.removeAt(candidate) to candidate
-}
