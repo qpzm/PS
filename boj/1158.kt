@@ -15,7 +15,6 @@ fun solve(n: Int, k: Int): List<Int> {
     val l = mutableListOf<Int>()
 
     while(true) {
-        // index 기준으로 맞춤.
         val (v, j) = pickOne(nums, k - 1, i)
         if(v == -1) {
             break
@@ -28,6 +27,11 @@ fun solve(n: Int, k: Int): List<Int> {
     return l
 }
 
+/*
+ * l에서 index i + k를 remove.
+ * i + k > lastIndex 이면 넘치는 만큼 처음부터 다시 시작.
+ * 즉, k = i + k - size, i = 0
+ */
 fun pickOne(l: MutableList<Int>, k: Int, i: Int): Pair<Int, Int> {
     if(l.size == 0) {
         return -1 to -1
