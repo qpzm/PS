@@ -6,8 +6,20 @@ class NumArray:
 
     def __init__(self, nums: list[int]):
         self.nums = [0] * (2 * NumArray.MAX_LEN)
-        for (i, n) in enumerate(nums):
-            self.update(i, n)
+
+        def build(i, left, right):
+            if left == right:
+                if left <= len(nums) - 1:
+                    self.nums[i] = nums[left]
+                    return self.nums[i]
+                else:
+                    return 0
+
+            mid = left + (right - left) // 2
+            self.nums[i] = build(i * 2, left, mid) + build(i * 2 + 1, mid + 1, right)
+            return self.nums[i]
+
+        print(build(1, 0, NumArray.MAX_LEN - 1))
 
     def update(self, index: int, val: int) -> None:
         j = NumArray.MAX_LEN + index
@@ -24,7 +36,7 @@ class NumArray:
         left_index = NumArray.MAX_LEN + left
         right_index = NumArray.MAX_LEN + right
 
-        while left_index != right_index and left_index < right_index:
+        while left_index < right_index:
             if left_index % 2 == 1:
                 res += self.nums[left_index]
                 left_index += 1
@@ -40,3 +52,14 @@ class NumArray:
             res += self.nums[left_index]
 
         return res
+
+cmds = ["NumArray", "sumRange","sumRange","sumRange","update","update","update","sumRange","update","sumRange","update"]
+args = [[[0,9,5,7,3]],[4,4],[2,4],[3,3],[4,5],[1,7],[0,8],[1,2]]
+for (c, arg) in zip(cmds, args):
+    if c == "NumArray":
+        print(arg)
+        obj = NumArray(*arg)
+    if c == "sumRange":
+        print("sumRange", *arg, obj.sumRange(*arg))
+    elif c == "update":
+        obj.update(*arg)
