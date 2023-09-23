@@ -8,6 +8,7 @@ class NumArray:
         self.nums = [0] * (2 * NumArray.MAX_LEN)
 
         def build(i, left, right):
+            print(i, left, right)
             if left == right:
                 if left <= len(nums) - 1:
                     self.nums[i] = nums[left]
@@ -19,7 +20,7 @@ class NumArray:
             self.nums[i] = build(i * 2, left, mid) + build(i * 2 + 1, mid + 1, right)
             return self.nums[i]
 
-        print(build(1, 0, NumArray.MAX_LEN - 1))
+        print(build(1, 0, len(nums) - 1))
 
     def update(self, index: int, val: int) -> None:
         j = NumArray.MAX_LEN + index
@@ -53,8 +54,12 @@ class NumArray:
 
         return res
 
-cmds = ["NumArray", "sumRange","sumRange","sumRange","update","update","update","sumRange","update","sumRange","update"]
-args = [[[0,9,5,7,3]],[4,4],[2,4],[3,3],[4,5],[1,7],[0,8],[1,2]]
+# cmds = ["NumArray", "sumRange","sumRange","sumRange","update","update","update","sumRange","update","sumRange","update"]
+# args = [[[0,9,5,7,3]],[4,4],[2,4],[3,3],[4,5],[1,7],[0,8],[1,2]]
+
+cmds = ["NumArray","sumRange","update","sumRange"]
+args = [[[1,3,5]],[0,2],[1,2],[0,2]]
+
 for (c, arg) in zip(cmds, args):
     if c == "NumArray":
         print(arg)
